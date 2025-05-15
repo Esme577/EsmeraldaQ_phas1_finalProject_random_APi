@@ -1,3 +1,4 @@
+/*
 const results = document.getElementById("results");
 const searchInput = document.getElementById("search-input");
 
@@ -76,3 +77,35 @@ searchInput.addEventListener("input", function (e) {
   //searchForDrink(input);
   debouncedSearch(input);
 })
+*/
+
+async function drinkIngredients() {
+
+try {
+        const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita`);
+        const data = await response.json(); 
+        if (data.drinks) {
+            let ingredMeasList ="";
+            for(i=0,i<=16;i++){
+        const ingredient = data[`strIngredient${i}`];
+        const measure = data[`strMeasure${i}`];
+
+        if (ingredient) {
+          ingredMeasList += `<li>${ingredient}${measure ? ` - ${measure}` : ''}</li>`;
+        } else {
+            throw new Error('Drink not found ');
+        }
+    } catch (error) {
+        console.error('Error:', error); 
+    }
+}
+drinkIngredients()
+
+  fetch("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita")
+    .then(resp => resp.json())
+    .then(data => {
+    data.drinks.for(drink => {
+      console.log(drink.strDrink);
+    });
+  })
+  .catch(err => console.error(err));
