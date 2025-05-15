@@ -1,4 +1,4 @@
-drinks:[
+let drinks = [
     {"idDrink":"11007",
         "strDrink":"Margarita",
         "strDrinkAlternate":null,"strTags":"IBA,ContemporaryClassic",
@@ -34,15 +34,25 @@ drinks:[
         "strMeasure6":null,"strMeasure7":null,"strMeasure8":null,"strMeasure9":null,"strMeasure10":null,"strMeasure11":null,"strMeasure12":null,"strMeasure13":null,"strMeasure14":null,"strMeasure15":null,"strImageSource":"https:\/\/commons.wikimedia.org\/wiki\/File:Klassiche_Margarita.jpg",
         "strImageAttribution":"Cocktailmarler",
         "strCreativeCommonsConfirmed":"Yes",
-        "dateModified":"2015-08-18 14:42:59"}]
+        "dateModified":"2015-08-18 14:42:59"}];
 
         let drinksIngMeasList ="";
-        for (let item=0;item<=15; item++){
+        
+        drinks.forEach(drink => {
+                  for(let item=1;item<=15; item++){
             let ingredient = drink[`strIngredient${item}`];
             let measure = drink[`strMeasure${item}`];
 
             if (ingredient){
-                drinksIngMeasList += `<li>${ingredient}</li>`
+                console.log(ingredient,measure)
+                drinksIngMeasList += `<li>${measure || ""}${ingredient}</li>`;
             }
 
         }
+            
+        });
+  
+        console.log(`<ul>${drinksIngMeasList}</ul>`);
+        
+       
+       
