@@ -24,7 +24,8 @@ function debounce(func, wait) {
 
 function displayDrinks(drinks){
   const listOfDrinks = drinks.map(drink => {
-    return `<li><a data-url="${drink.url}">${drink.strDrink}</li>`
+    console.log("Attempt 2" + drink)
+    return `<li><a data-name ="${drink.strDrink}">${drink.strDrink}</li>`
   }).join(" ");
 
   results.innerHTML = `<ul class="drink">${listOfDrinks}</ul>`;
@@ -35,7 +36,7 @@ async function searchForDrink(query) {
     try {
         const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query}`);
         const data = await response.json(); 
-        if (data.drinks) {
+        if (data.drinks[0]) {
             data.drinks.forEach(drink => {
       console.log(drink.strDrink);
       displayDrinks(data.drinks)
@@ -65,28 +66,73 @@ links.forEach(link => {
   link.addEventListener('click', () => {
     const drinkUrl = link.getAttribute('data-url');
     console.log(drinkUrl);
+    openDrinkDialog(drinkUrl)
   });
 });
-
 function openDrinkDialog(drinkApiUrl) {
   dialog.showModal();
   fetch(drinkApiUrl)
   .then(resp => resp.json())
   .then(data => {
+    const drink = data.drinks;
+    console.log(`this is unnested : ${drink}`)
+  
+     drinkTitle.innerText = data.strDrink;
+        let drinksIngMeasList ="";
+        drinks.forEach(drink => {
+                  for(let item=1;item<=15; item++){
+            let ingredient = drink[`strIngredient${item}`];
+            let measure = drink[`strMeasure${item}`];
 
-    drinkTitle.innerText = data.strDrink;
+            if (ingredient){
+                console.log(`${measure || ""}${ingredient}`)
+                drinksIngMeasList += `${measure || ""}${ingredient}`
+                //drinksIngMeasList += `<li>${measure || ""}${ingredient}</li>`;
+            }
+
+        }
+            
+        });
 
 
 
     dialogContent.innerHTML = `
- <p><strong>Pic:</strong> ${data.strDrinkThumb}</p>
- <p><strong>Ingredients:</strong> ${data.strAlcoholic}</p>
- <p><strong>Liquor:</strong> ${data.strIngredient1},${data.strIngredient1}                 
- </p>
- <p><strong>Instructions:</strong> ${data.strInstructions}</p>`;
+        <img src="${drink.strDrinkThumb}"/>
+        <p><strong>Ingredients:</strong> ${drink.strAlcoholic}</p>
+        <p><strong>Liquor:</strong> ${drinksIngMeasList}</p>
+        <p><strong>Instructions:</strong> ${drink.strInstructions}</p>`;
 
 }).catch(err => {
     console.log(err);
 });
 
+}
+
+async function openDrinkDialog(drinkName) {
+  try {
+    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drinkName}`);
+    const data = await response.json();
+    const drink = data.drinks[0]; // Use first match
+
+    drinkTitle.innerText = drink.strDrink;
+
+    let drinksIngMeasList = "";
+    for (let i = 1; i <= 15; i++) {
+      const ingredient = drink[`strIngredient${i}`];
+      const measure = drink[`strMeasure${i}`];
+      if (ingredient) {
+        drinksIngMeasList += `<li>${measure || ""} ${ingredient}</li>`;
+      }
+    }
+
+    dialogContent.innerHTML = `
+      <img src="${drink.strDrinkThumb}" alt="${drink.strDrink}" style="width:200px;">
+      <ul><strong>Ingredients:</strong> ${drinksIngMeasList}</ul>
+      <p><strong>Instructions:</strong> ${drink.strInstructions}</p>
+    `;
+
+    dialog.showModal();
+  } catch (err) {
+    console.error("Error fetching drink details:", err);
+  }
 }

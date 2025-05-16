@@ -44,15 +44,16 @@ let drinks = [
             let measure = drink[`strMeasure${item}`];
 
             if (ingredient){
-                console.log(ingredient,measure)
-                drinksIngMeasList += `<li>${measure || ""}${ingredient}</li>`;
+                console.log(`${measure || ""}${ingredient}`)
+                drinksIngMeasList += `${measure || ""}${ingredient}`
+                //drinksIngMeasList += `<li>${measure || ""}${ingredient}</li>`;
             }
 
         }
             
         });
   
-        console.log(`<ul>${drinksIngMeasList}</ul>`);
+        //console.log(`<ul>${drinksIngMeasList}</ul>`);
         
        
        
