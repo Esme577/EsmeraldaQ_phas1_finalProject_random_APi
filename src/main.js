@@ -168,7 +168,7 @@ searchInput.addEventListener("input", function (e) {
             drinksIngMeasList += `<li>${measure || ""} ${ingredient}</li>`;}
     }
             dialogContent.innerHTML = `
-        <img src="${drink.strDrinkThumb}" alt="Alcohol drink"
+        <img src="${drink.strDrinkThumb}" alt="Alcohol drink";
                                           style="width:200px;"
                                           "height:200px;"/>
         <p><strong>Ingredients:</strong> ${drink.strAlcoholic}</p>
@@ -179,6 +179,9 @@ searchInput.addEventListener("input", function (e) {
         console.error('Not able to retireve drink info', error); 
     }
 }
+closeDialogButton.addEventListener('click', () => {
+  dialog.close();
+});
 
 
 
