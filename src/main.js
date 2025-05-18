@@ -183,6 +183,28 @@ closeDialogButton.addEventListener('click', () => {
   dialog.close();
 });
 
+////dog random generater
+async function catImage() {
+  console.log("see if we get to the dog image start");
+    try {
+        const response = await fetch(`https://dog.ceo/api/breeds/image/random`);
+        const data = await response.json();
+        console.log("data",data);
+        const dogImageContainer = document.getElementById("dogImageContainer");
+        
+
+        if (data.message) {
+            const dogImage = document.createElement("img");
+            console.log("2data",dogImage)
+            dogImage.classList.add("dogImage")
+            dogImage.src = data.message;
+            dogImage.alt = "random do image"
+            dogImageContainer.appendChild(dogImage);
+        }
+    }catch (error) {
+        console.error('Error:', error); 
+    }}
+catImage();
 
 
 

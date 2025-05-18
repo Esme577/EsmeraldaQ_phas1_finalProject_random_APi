@@ -3,6 +3,17 @@
     padding: 0;
     box-sizing: border-box;
 }
+.dogImageContainer{
+    display: flex;
+    align-items: left;
+    max-width: 400px;
+}
+.dogImage{
+    height: 400px;
+    width: 400px;
+
+}
+
 .search-container {
   display: flex;
   align-items: center;

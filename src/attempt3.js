@@ -1,3 +1,4 @@
+/*
 let drinks = [
     {"idDrink":"11007",
         "strDrink":"Margarita",
@@ -54,6 +55,24 @@ let drinks = [
         });
   
         //console.log(`<ul>${drinksIngMeasList}</ul>`);
+*/
+        async function catImage() {
+  console.log("see if we get to the dog image start");
+    try {
+        const response = await fetch(`https://dog.ceo/api/breeds/image/random`);
+        const data = await response.json();
+        console.log(data);
+        const dogImageContainer = document.getElementById("dogImageContainer")
         
-       
-       
+
+        if (data.message) {
+            const dogImage = document.createElement("img");
+            dogImage.classList.add("dogImage")
+            dogImage.src = response;
+            dogImage.alt = "random do image"
+            dogImageContainer.appendChild(dogImage);
+        }
+    }catch (error) {
+        console.error('Error:', error); 
+    }}
+catImage();
