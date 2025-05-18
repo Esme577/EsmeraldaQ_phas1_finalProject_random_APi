@@ -3,15 +3,21 @@
     padding: 0;
     box-sizing: border-box;
 }
-.dogImageContainer{
-    display: flex;
-    align-items: left;
-    max-width: 400px;
+
+#dogImageContainer{
+  position: absolute;
+  top: 50px;
+  left: 20px;
+  width: 200px;
+  height: 400px;
+  
 }
 .dogImage{
-    height: 400px;
-    width: 400px;
-
+    width: 100%;
+    height: auto;
+    padding-left: 0%;
+      width: 200px;
+  height: 500px;
 }
 
 .search-container {
@@ -58,6 +64,7 @@
     text-align: center;
     color: rgb(70, 3, 28);
     text-decoration: none;
+    font-size: 20px;
 }
 dialog {
      position: fixed;
