@@ -75,6 +75,19 @@ async function searchForDrink(query) {
     }
 }
 searchForDrink();*/
+//play the sond
+
+play.addEventListener('click',()=>{
+  const track = document.getElementById("song");
+    if (track.paused) {
+    track.play();
+  } else {
+    track.pause();
+  }
+});
+
+
+//the following ar the variables used through out my project that will be where x thing is shown when we run our local host
 const results = document.getElementById("results");
 const searchInput = document.getElementById("search-input");
 const dialog = document.getElementById("popup-dialog");
@@ -82,7 +95,7 @@ const drinkTitle = document.getElementById("drink-title");
 const dialogContent = document.getElementById("dialog-content");
 const closeDialogButton = document.getElementById("close-dialog");
 
-
+// what this does if we wearch something and it takes an excess amount of time we cancel that serach
 function debounce(func, wait) {
   let timeout;
 
@@ -98,7 +111,7 @@ function debounce(func, wait) {
 }
 
 
-
+// what this does it displays the drinks that the user searched for
 function displayDrinks(drinks){
   console.log("Attempt 2  params", drinks)
   const listOfDrinks = drinks.map(drink => {
@@ -110,6 +123,7 @@ function displayDrinks(drinks){
   const links = document.querySelectorAll('.drinks a');
 
 // For each link, lets add an event listener that listens for the click event.
+//listens to what the user typed in the search box and displays what the user clicked on 
 links.forEach(link => {
   link.addEventListener('click', (e) => {
     e.preventDefault();
@@ -120,7 +134,7 @@ links.forEach(link => {
 });
 }
 
-
+//the following searches the api so that the drink names appear as the user types
 async function searchForDrink(query) {
   console.log("User input sent to API:", query);
     try {
@@ -140,7 +154,7 @@ async function searchForDrink(query) {
 }
 
 const debouncedSearch = debounce(searchForDrink, 500)
-
+//listens to what the user inputs and displays that
 // Adding an event listener that listens to whenever the user types something into the search bar
 searchInput.addEventListener("input", function (e) {
   // Get the value of the input
@@ -150,7 +164,7 @@ searchInput.addEventListener("input", function (e) {
   debouncedSearch(input);
 })
 
-
+// what this doe is that once you serach and find your drink you want the drink info this pulls from the api the drink info you want 
  async function openDrinkDialog(drinkName) {
   
     try {
@@ -184,6 +198,7 @@ closeDialogButton.addEventListener('click', () => {
 });
 
 ////dog random generater
+// fethces the dog image from the api and displays it onto the dogImage container 
 async function catImage() {
   console.log("see if we get to the dog image start");
     try {

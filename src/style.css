@@ -3,7 +3,16 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+#play{
+      margin-top: 10px;
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: #000000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;            
+}
 #dogImageContainer{
   position: absolute;
   top: 50px;
